@@ -27,7 +27,6 @@ def read_pgn_csv():
 
 
 pgn_list = read_pgn_csv()
-print(pgn_list)
 
 
 def run_pgn(file_name):
@@ -64,7 +63,7 @@ def next_move(t_move_num):
 
 
 def prev_move(t_move_num):
-    if t_move_num > 1:
+    if t_move_num > 0:
         t_move_num = t_move_num - 1
         my_board.pop()
         print(t_move_num)
@@ -86,6 +85,17 @@ app = Flask(__name__, static_url_path='/static')
 ico = './static/chess_king.svg'
 
 
+def reset_game():
+    global move_num, my_board, BOARDSIZE, orientation, moves, title
+
+    moves = ['---', 'e4', 'e5', 'Nf3', 'Nc6', 'd4', 'exd4', 'Nxd4', 'Bc5']
+    title = 'Scotch'
+    move_num = 0
+    my_board = chess.Board()
+    orientation = True
+    my_board.reset_board()
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global move_num, my_board, BOARDSIZE, orientation
@@ -95,16 +105,20 @@ def index():
             print('Next')
             move_num = next_move(move_num)
             return render_template('index.html',
-                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation))
+                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
+                                   game_title= title)
 
         elif 'prev_btn' in request.form:
             print('Prev')
             move_num = prev_move(move_num)
             return render_template('index.html',
-                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation))
+                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
+                                   game_title= title)
     else:
         #GET
-        return render_template('index.html', board_svg=img)
+        reset_game()
+        return render_template('index.html', board_svg=img,
+                               game_title=title)
 
 
 if __name__ == '__main__':
