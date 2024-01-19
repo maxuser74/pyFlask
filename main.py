@@ -56,7 +56,6 @@ def next_move(t_move_num):
     if t_move_num < len(moves) - 1:
         t_move_num = t_move_num + 1
         my_board.push_san(moves[t_move_num])
-        print(t_move_num)
     else:
         pass
     return t_move_num
@@ -66,7 +65,6 @@ def prev_move(t_move_num):
     if t_move_num > 0:
         t_move_num = t_move_num - 1
         my_board.pop()
-        print(t_move_num)
     else:
         pass
     return t_move_num
