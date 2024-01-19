@@ -1,0 +1,20 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2023.12.26"]
+[Round "?"]
+[White "macspacs"]
+[Black "firwork"]
+[Result "1-0"]
+[ECO "C50"]
+[WhiteElo "711"]
+[BlackElo "742"]
+[TimeControl "600"]
+[EndTime "12:04:53 PST"]
+[Termination "macspacs won by checkmate"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 d5 4. Bxd5 Nf6 5. Bc4 Bg4 6. O-O Nxe4 7. h3 Bh5 8.
+Re1 Nd6 9. c3 Nxc4 10. d4 Bxf3 11. Qxf3 Nxd4 12. cxd4 Qxd4 13. Nc3 Bb4 14. Re4
+Qc5 15. a3 Bxc3 16. bxc3 O-O 17. Be3 Nxe3 18. Rxe3 Rae8 19. Rae1 Re6 20. Qxb7
+Rfe8 21. Qe4 Qxa3 22. c4 Qe7 23. g3 c5 24. h4 h5 25. g4 g6 26. gxh5 gxh5 27. Qf5
+Rf6 28. Rg3+ Kf8 29. Qh7 Qe6 30. f4 Rxf4 31. Qg8+ Ke7 32. Qg5+ Qf6 33. Qxh5 Qxh4
+34. Qxe5+ Kf8 35. Qxc5+ Re7 36. Qc8+ Re8 37. Rxe8# 1-0
