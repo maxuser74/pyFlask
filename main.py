@@ -60,7 +60,6 @@ def next_move(t_move_num):
         print(t_move_num)
     else:
         pass
-
     return t_move_num
 
 
