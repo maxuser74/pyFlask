@@ -72,13 +72,10 @@ def prev_move(t_move_num):
 
 def mirror_board(t_orient):
     t_orient = not t_orient
-    t_svg_board = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-    return t_svg_board, t_orient
+    return t_orient
 
 
 app = Flask(__name__, static_url_path='/static')
-
-#img = './static/chess_board.svg'
 
 ico = './static/chess_king.svg'
 
@@ -100,18 +97,28 @@ def index():
     if request.method == "POST":
         #POST
         if 'next_btn' in request.form:
-            print('Next')
             move_num = next_move(move_num)
             return render_template('index.html',
                                    board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
                                    game_title= title)
 
         elif 'prev_btn' in request.form:
-            print('Prev')
             move_num = prev_move(move_num)
             return render_template('index.html',
                                    board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
                                    game_title= title)
+        elif 'mirror' in request.form:
+            orientation = mirror_board(orientation)
+            return render_template('index.html',
+                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
+                                   game_title= title)
+        elif 'reset' in request.form:
+            reset_game()
+            return render_template('index.html',
+                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
+                                   game_title= title)
+
+
     else:
         #GET
         reset_game()
