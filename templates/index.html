@@ -27,11 +27,16 @@
       </div>
     </div>
 
-    <div class="col-3 border">
-        <h3>{{ game_title }}</h3>
+    <div class="col-3 border container">
+        <div class="row">
+        <h2>{{ game_title }}</h2>
+        </div>
+
           <form action="#" method="post">
-            <button type="submit" class="btn btn-outline-primary btn-lg" name="prev_btn" value="clicked">Prev</button>
-            <button type="submit" class="btn btn-outline-primary btn-lg" name="next_btn" value="clicked">Next</button>
+            <div class="row">
+                <button type="submit" class="btn btn-outline-primary btn-lg w-50" name="prev_btn" value="clicked">Prev</button>
+                <button type="submit" class="btn btn-outline-primary btn-lg w-50" name="next_btn" value="clicked">Next</button>
+            </div>
           </form>
     </div>
   </div>
