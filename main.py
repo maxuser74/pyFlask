@@ -121,12 +121,6 @@ def index():
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
-        elif 'test_tts' in request.form:
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img2 = temp_svg.replace('"1000"', '"100%"')
-            return render_template('index.html', board_svg=img2,
-                                   game_title=title)
-
     else:
         #GET
         reset_game()
@@ -139,3 +133,7 @@ def index():
 if __name__ == '__main__':
     app.run(debug=True)
 
+# Using production server below
+#if __name__ == "__main__":
+#    from waitress import serve
+#    serve(app, host="0.0.0.0", port=8080)
