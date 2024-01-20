@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response
 import chess
 import chess.svg
 import chess.pgn
 import csv
+
 
 BOARDSIZE = 1000
 my_board = chess.Board()
@@ -115,6 +116,12 @@ def index():
 
         elif 'reset' in request.form:
             reset_game()
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            img2 = temp_svg.replace('"1000"', '"100%"')
+            return render_template('index.html', board_svg=img2,
+                                   game_title=title)
+
+        elif 'test_tts' in request.form:
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
             img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
