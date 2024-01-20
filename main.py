@@ -13,28 +13,6 @@ moves = ['---','e4', 'e5', 'Nf3', 'Nc6', 'd4', 'exd4', 'Nxd4', 'Bc5']
 title = 'Scotch'
 
 
-def elaborate_svg(original_svg):
-    specific_word = "<svg "
-#    new_substring = 'preserveAspectRatio="none" '
-    new_substring = ''
-
-    original_svg = original_svg.replace('"500"', '"90%"')
-    print(original_svg)
-
-    # Find the position of the specific word
-    position = original_svg.find(specific_word)
-
-    # Check if the word is found
-    if position != -1:
-        # Create a new string by concatenating the parts before and after the word
-        new_svg = (original_svg[:position + len(specific_word)] +
-                   new_substring + original_svg[position + len(specific_word):])
-        return new_svg
-    else:
-        # Word not found, return the original string
-        return original_svg
-
-
 def read_pgn_csv():
     with open('pgn/pgn.csv', newline='') as csvfile:
         temp_pgn = {}
@@ -111,42 +89,42 @@ def reset_game():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global move_num, my_board, BOARDSIZE, orientation
+    global move_num, my_board, BOARDSIZE, orientation, img
     if request.method == "POST":
         #POST
         if 'next_btn' in request.form:
             move_num = next_move(move_num)
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img2 = elaborate_svg(temp_svg)
+            img2 = temp_svg.replace('"500"', '"90%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'prev_btn' in request.form:
             move_num = prev_move(move_num)
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img2 = elaborate_svg(temp_svg)
+            img2 = temp_svg.replace('"500"', '"90%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'mirror' in request.form:
             orientation = mirror_board(orientation)
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img2 = elaborate_svg(temp_svg)
+            img2 = temp_svg.replace('"500"', '"90%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'reset' in request.form:
             reset_game()
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img2 = elaborate_svg(temp_svg)
+            img2 = temp_svg.replace('"500"', '"90%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
     else:
         #GET
         reset_game()
-        img2 = elaborate_svg(img)
-        return render_template('index.html', board_svg=img2,
+        img = img.replace('"500"', '"90%"')
+        return render_template('index.html', board_svg=img,
                                game_title=title)
 
 
