@@ -3,7 +3,6 @@ import chess
 import chess.svg
 import chess.pgn
 import csv
-from markupsafe import Markup
 
 BOARDSIZE = 600
 my_board = chess.Board()
