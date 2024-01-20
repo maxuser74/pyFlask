@@ -17,6 +17,26 @@ moves = ['---','e4', 'e5', 'Nf3', 'Nc6', 'd4', 'exd4', 'Nxd4', 'Bc5']
 title = 'Scotch'
 
 
+def elaborate_svg(original_svg):
+    specific_word = "<svg "
+    new_substring = 'preserveAspectRatio="none" '
+
+    original_svg = original_svg.replace('"600"', '"100%"')
+
+    # Find the position of the specific word
+    position = original_svg.find(specific_word)
+
+    # Check if the word is found
+    if position != -1:
+        # Create a new string by concatenating the parts before and after the word
+        new_svg = (original_svg[:position + len(specific_word)] +
+                   new_substring + original_svg[position + len(specific_word):])
+        return new_svg
+    else:
+        # Word not found, return the original string
+        return original_svg
+
+
 def read_pgn_csv():
     with open('pgn/pgn.csv', newline='') as csvfile:
         temp_pgn = {}
@@ -98,33 +118,37 @@ def index():
         #POST
         if 'next_btn' in request.form:
             move_num = next_move(move_num)
-            return render_template('index.html',
-                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
-                                   game_title= title)
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            img2 = elaborate_svg(temp_svg)
+            return render_template('index.html', board_svg=img2,
+                                   game_title=title)
 
         elif 'prev_btn' in request.form:
             move_num = prev_move(move_num)
-            return render_template('index.html',
-                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
-                                   game_title= title)
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            img2 = elaborate_svg(temp_svg)
+            return render_template('index.html', board_svg=img2,
+                                   game_title=title)
 
         elif 'mirror' in request.form:
             orientation = mirror_board(orientation)
-            return render_template('index.html',
-                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
-                                   game_title= title)
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            img2 = elaborate_svg(temp_svg)
+            return render_template('index.html', board_svg=img2,
+                                   game_title=title)
 
         elif 'reset' in request.form:
             reset_game()
-            return render_template('index.html',
-                                   board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
-                                   game_title= title)
-
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            img2 = elaborate_svg(temp_svg)
+            return render_template('index.html', board_svg=img2,
+                                   game_title=title)
 
     else:
         #GET
         reset_game()
-        return render_template('index.html', board_svg=img,
+        img2 = elaborate_svg(img)
+        return render_template('index.html', board_svg=img2,
                                game_title=title)
 
 
