@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Flask</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -17,35 +16,31 @@
   </div>
 </nav>
 
-<div class="container-fluid">
+<div class="container my-3 mx-5">
   <div class="row">
-    <div class="col-9">
-      <div class="img_container" style="height:100%">
+      <div class="col-9 img-fluid">
           {% autoescape false %}
             {{ board_svg | safe}}
           {% endautoescape %}
       </div>
-    </div>
-
-    <div class="col-3 border container">
-        <h2>{{ game_title }}</h2>
-          <form action="#" method="post">
-            <div class="row">
-                <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="reset" value="clicked">Reset</button>
-            </div>
-
-            <div class="row">
-                <button type="submit" class="btn btn-outline-primary btn-lg w-50" name="prev_btn" value="clicked">Prev</button>
-                <button type="submit" class="btn btn-outline-primary btn-lg w-50" name="next_btn" value="clicked">Next</button>
-            </div>
-          <div class="row">
-            <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="mirror" value="clicked">Mirror</button>
-          </div>
-          </form>
-
-
-    </div>
+      <div class="col-3 border">
+            <h2>{{ game_title }}</h2>
+              <form action="#" method="post">
+                <div class="row">
+                    <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="reset" value="clicked">Reset</button>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-outline-primary btn-lg w-50" name="prev_btn" value="clicked">Prev</button>
+                    <button type="submit" class="btn btn-outline-primary btn-lg w-50" name="next_btn" value="clicked">Next</button>
+                </div>
+              <div class="row">
+                <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="mirror" value="clicked">Mirror</button>
+              </div>
+              </form>
+      </div>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

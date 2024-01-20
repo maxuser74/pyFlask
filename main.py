@@ -107,11 +107,13 @@ def index():
             return render_template('index.html',
                                    board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
                                    game_title= title)
+
         elif 'mirror' in request.form:
             orientation = mirror_board(orientation)
             return render_template('index.html',
                                    board_svg=chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation),
                                    game_title= title)
+
         elif 'reset' in request.form:
             reset_game()
             return render_template('index.html',
