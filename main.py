@@ -4,7 +4,7 @@ import chess.svg
 import chess.pgn
 import csv
 
-BOARDSIZE = 600
+BOARDSIZE = 500
 my_board = chess.Board()
 orientation = True
 move_num = 0
@@ -15,9 +15,11 @@ title = 'Scotch'
 
 def elaborate_svg(original_svg):
     specific_word = "<svg "
-    new_substring = 'preserveAspectRatio="none" '
+#    new_substring = 'preserveAspectRatio="none" '
+    new_substring = ''
 
-    original_svg = original_svg.replace('"600"', '"100%"')
+    original_svg = original_svg.replace('"500"', '"90%"')
+    print(original_svg)
 
     # Find the position of the specific word
     position = original_svg.find(specific_word)
