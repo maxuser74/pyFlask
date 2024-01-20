@@ -8,10 +8,7 @@ BOARDSIZE = 600
 my_board = chess.Board()
 orientation = True
 move_num = 0
-
 img = chess.svg.board(my_board, size= BOARDSIZE, orientation= orientation )
-
-
 moves = ['---','e4', 'e5', 'Nf3', 'Nc6', 'd4', 'exd4', 'Nxd4', 'Bc5']
 title = 'Scotch'
 
