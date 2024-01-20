@@ -4,7 +4,7 @@ import chess.svg
 import chess.pgn
 import csv
 
-BOARDSIZE = 500
+BOARDSIZE = 1000
 my_board = chess.Board()
 orientation = True
 move_num = 0
@@ -95,35 +95,36 @@ def index():
         if 'next_btn' in request.form:
             move_num = next_move(move_num)
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img2 = temp_svg.replace('"500"', '"90%"')
+            img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'prev_btn' in request.form:
             move_num = prev_move(move_num)
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img2 = temp_svg.replace('"500"', '"90%"')
+            img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'mirror' in request.form:
             orientation = mirror_board(orientation)
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img2 = temp_svg.replace('"500"', '"90%"')
+            img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'reset' in request.form:
             reset_game()
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img2 = temp_svg.replace('"500"', '"90%"')
+            img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
     else:
         #GET
         reset_game()
-        img = img.replace('"500"', '"90%"')
+        img = img.replace('"1000"', '"100%"')
+
         return render_template('index.html', board_svg=img,
                                game_title=title)
 
