@@ -27,26 +27,26 @@ pgn_list = read_pgn_csv()
 
 
 def run_pgn(file_name):
+    global my_board, move_num, moves
     try:
         # Open PGN file
         temp_game = chess.pgn.read_game(open(file_name))
         temp_board = chess.Board()
-        temp_str_san_moves_array = ['---']
+        moves = ['---']
 
         # Make moves array
         for move in temp_game.mainline_moves():
             a = temp_board.san(move)
-            temp_str_san_moves_array.append(a)
+            moves.append(a)
             temp_board.push(move)
-        print(temp_str_san_moves_array[0:5])
 
         # reset Board
-        temp_board = chess.Board()
-        t_move_num = 0
-        return temp_board, temp_str_san_moves_array, t_move_num
+        my_board = chess.Board()
+        move_num = 0
 
     except:
         print('Wrong PGN')
+        reset_game()
 
 
 def next_move(t_move_num):
@@ -116,6 +116,13 @@ def index():
 
         elif 'reset' in request.form:
             reset_game()
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            img2 = temp_svg.replace('"1000"', '"100%"')
+            return render_template('index.html', board_svg=img2,
+                                   game_title=title)
+
+        elif 'load_pgn' in request.form:
+            run_pgn('pgn/Italian_game_classic.pgn')
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
             img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,

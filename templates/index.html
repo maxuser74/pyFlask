@@ -18,26 +18,45 @@
       <div class="col-3">
             <h3>{{ game_title }}</h3>
               <form action="#" method="post">
-                <div class="row p-2">
+                  <!-- Prev Next buttons -->
+                  <div class="row">
+                      <div class="col">
+                          <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="prev_btn" value="clicked">Prev</button>
+                      </div>
+                      <div class="col">
+                          <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="next_btn" value="clicked">Next</button>
+                      </div>
+                  </div>
+
+                  <!-- reset button -->
+                  <div class="row p-2">
                     <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="reset" value="clicked">Reset</button>
-                </div>
-                <div class="row p-2">
-                    <button type="submit" class="btn btn-outline-primary btn-lg w-50" name="prev_btn" value="clicked">Prev</button>
-                    <button type="submit" class="btn btn-outline-primary btn-lg w-50" name="next_btn" value="clicked">Next</button>
-                </div>
-              <div class="row p-2">
-                <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="mirror" value="clicked">Mirror board</button>
-              </div>
-                  <hr class="rounded">
-              <div class="row">
-                  <h5>Openings</h5>
-                  <select class="form-select" aria-label="Default select example">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                  </select>
-              </div>
+                  </div>
+
+                  <!-- Mirror button -->
+                  <div class="row p-2">
+                    <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="mirror" value="clicked">Mirror board</button>
+                  </div>
+
+                  <!-- Test load PGN button -->
+                  <div class="row p-2">
+                    <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="load_pgn" value="clicked">Load PGN</button>
+                  </div>
+
+                      <hr class="rounded">
+
+
+
+                  <!-- Openings select box -->
+                  <div class="row">
+                      <h5>Openings</h5>
+                      <select class="form-select" aria-label="Default select example">
+                          <option selected>Open this select menu</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                      </select>
+                  </div>
 
               </form>
       </div>
