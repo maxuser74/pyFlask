@@ -5,6 +5,9 @@
     <title>Flask</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+
 </head>
 <body>
 
@@ -38,29 +41,45 @@
                     <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="mirror" value="clicked">Mirror board</button>
                   </div>
 
-                  <!-- Test load PGN button -->
-                  <div class="row p-2">
-                    <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="load_pgn" value="clicked">Load PGN</button>
-                  </div>
-
                       <hr class="rounded">
-
-
 
                   <!-- Openings select box -->
                   <div class="row">
                       <h5>Openings</h5>
-                        <select class="message_selector" name="message">
+                        <select class="form-select" name="openings" id="select1" onchange="val()">
                             {% for message in pgn_select_list %}
                             <option value="{{message}}">{{message}}</option>
                             {% endfor %}
                         </select>
+                        <div class="row p-2">
+                            <button type="submit" class="btn btn-outline-primary btn-lg w-100" name="load_pgn" value="clicked">Load PGN</button>
+                        </div>
                   </div>
-
               </form>
       </div>
   </div>
 </div>
+<script>
+
+
+        var selectTag = document.getElementById('select1');
+
+        function val() {
+            console.log('Changed!!!');
+            console.log(selectTag.value);
+            var server_data = {'file_name' : selectTag.value};
+
+            $.ajax({
+              type: "POST",
+              url: "/process",
+              data: JSON.stringify(server_data),
+              contentType: "application/json",
+              dataType: 'json'
+            });
+
+           }
+
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

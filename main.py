@@ -1,5 +1,5 @@
 import flask
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, jsonify
 import chess
 import chess.svg
 import chess.pgn
@@ -99,10 +99,24 @@ def refresh_board():
                            game_title=title,
                            pgn_select_list=pgn_list)
 
+
+@app.route('/process', methods=['POST', 'GET'])
+def process():
+    if request.method == "POST":
+        ajax_data = request.get_json()
+        print(ajax_data['file_name'])
+        file_name_complete = 'pgn/' + ajax_data['file_name'] + '.pgn'
+        print(file_name_complete)
+        run_pgn(file_name_complete)
+
+    results = {'processed': 'true'}
+    return jsonify(results)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global move_num, my_board, orientation, img, pgn_list, title
     if request.method == "POST":
+
         #POST
         if 'next_btn' in request.form:
             move_num = next_move(move_num)
