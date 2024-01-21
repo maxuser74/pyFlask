@@ -95,7 +95,6 @@ def index():
     global move_num, my_board, orientation, img, pgn_list
     if request.method == "POST":
         #POST
-        print('POST')
         if 'next_btn' in request.form:
             move_num = next_move(move_num)
             temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
@@ -139,7 +138,6 @@ def index():
 
     if request.method == "GET":
         #GET
-        print('GET')
         reset_game()
         temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
         img = temp_svg.replace('"1000"', '"100%"')
