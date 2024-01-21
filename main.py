@@ -89,6 +89,13 @@ def reset_game():
     orientation = True
     my_board.reset_board()
 
+def refresh_board():
+    global img
+    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+    img = temp_svg.replace('"1000"', '"100%"')
+    return render_template('index.html', board_svg=img,
+                           game_title=title,
+                           pgn_select_list=pgn_list)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -97,53 +104,28 @@ def index():
         #POST
         if 'next_btn' in request.form:
             move_num = next_move(move_num)
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img = temp_svg.replace('"1000"', '"100%"')
-
-            return render_template('index.html', board_svg= img,
-                                game_title=title,
-                                pgn_select_list= pgn_list)
+            return refresh_board()
 
         elif 'prev_btn' in request.form:
             move_num = prev_move(move_num)
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img = temp_svg.replace('"1000"', '"100%"')
-            return render_template('index.html', board_svg= img,
-                                game_title=title,
-                                pgn_select_list= pgn_list)
+            return refresh_board()
 
         elif 'mirror' in request.form:
             orientation = mirror_board(orientation)
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img = temp_svg.replace('"1000"', '"100%"')
-            return render_template('index.html', board_svg= img,
-                                game_title=title,
-                                pgn_select_list= pgn_list)
+            return refresh_board()
 
         elif 'reset' in request.form:
             reset_game()
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img = temp_svg.replace('"1000"', '"100%"')
-            return render_template('index.html', board_svg= img,
-                                game_title=title,
-                                pgn_select_list= pgn_list)
+            return refresh_board()
 
         elif 'load_pgn' in request.form:
             run_pgn('pgn/Italian_game_classic.pgn')
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-            img = temp_svg.replace('"1000"', '"100%"')
-            return render_template('index.html', board_svg= img,
-                                game_title=title,
-                                pgn_select_list= pgn_list)
+            return refresh_board()
 
     if request.method == "GET":
         #GET
         reset_game()
-        temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-        img = temp_svg.replace('"1000"', '"100%"')
-        return render_template('index.html', board_svg= img,
-                                game_title=title,
-                                pgn_select_list= pgn_list)
+        return refresh_board()
 
 
 if __name__ == '__main__':
