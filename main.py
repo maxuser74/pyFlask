@@ -5,7 +5,7 @@ import chess.svg
 import chess.pgn
 import os
 
-
+STAT_DEV = True
 
 BOARDSIZE = 1000
 my_board = chess.Board()
@@ -29,7 +29,7 @@ for file in os.listdir(dir_path):
 
 
 def run_pgn(file_name):
-    global my_board, move_num, moves
+    global my_board, move_num, moves, title
     try:
         # Open PGN file
         temp_game = chess.pgn.read_game(open(file_name))
@@ -45,6 +45,8 @@ def run_pgn(file_name):
         # reset Board
         my_board = chess.Board()
         move_num = 0
+        title = file_name.replace('pgn/','')
+        title = title.replace('.pgn', '')
 
     except:
         print('Wrong PGN')
@@ -99,7 +101,7 @@ def refresh_board():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global move_num, my_board, orientation, img, pgn_list
+    global move_num, my_board, orientation, img, pgn_list, title
     if request.method == "POST":
         #POST
         if 'next_btn' in request.form:
@@ -119,7 +121,7 @@ def index():
             return refresh_board()
 
         elif 'load_pgn' in request.form:
-            run_pgn('pgn/Italian_game_classic.pgn')
+            run_pgn('pgn/Italian game classic.pgn')
             return refresh_board()
 
     if request.method == "GET":
@@ -129,9 +131,8 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-# Using production server below
-#if __name__ == "__main__":
-#    from waitress import serve
-#    serve(app, host="0.0.0.0", port=8080)
+    if STAT_DEV:
+        app.run(debug=True)
+    else:
+        from waitress import serve
+        serve(app, host="0.0.0.0", port=8080)
