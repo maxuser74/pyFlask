@@ -50,12 +50,11 @@
                   <!-- Openings select box -->
                   <div class="row">
                       <h5>Openings</h5>
-                      <select class="form-select" aria-label="Default select example">
-                          <option selected>Open this select menu</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                      </select>
+                        <select class="message_selector" name="message">
+                            {% for message in pgn_select_list %}
+                            <option value="{{message}}">{{message}}</option>
+                            {% endfor %}
+                        </select>
                   </div>
 
               </form>

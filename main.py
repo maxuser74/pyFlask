@@ -3,6 +3,7 @@ import chess
 import chess.svg
 import chess.pgn
 import csv
+import os
 
 
 BOARDSIZE = 1000
@@ -14,16 +15,15 @@ moves = ['---','e4', 'e5', 'Nf3', 'Nc6', 'd4', 'exd4', 'Nxd4', 'Bc5']
 title = 'Scotch'
 
 
-def read_pgn_csv():
-    with open('pgn/pgn.csv', newline='') as csvfile:
-        temp_pgn = {}
-        reader = csv.reader(csvfile)
-        for row in reader:
-            temp_pgn[row[0]] = row[1]
-    return temp_pgn
+dir_path = 'pgn'
 
-
-pgn_list = read_pgn_csv()
+# list to store files
+pgn_list = []
+# Iterate directory
+for file in os.listdir(dir_path):
+    if file.endswith('.pgn'):
+        file = file.replace('.pgn','')
+        pgn_list.append(file)
 
 
 def run_pgn(file_name):
@@ -90,51 +90,49 @@ def reset_game():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global move_num, my_board, BOARDSIZE, orientation, img
+    global move_num, my_board, BOARDSIZE, orientation, img, pgn_list
     if request.method == "POST":
         #POST
         if 'next_btn' in request.form:
             move_num = next_move(move_num)
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation, pgn_select_list=pgn_list)
             img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'prev_btn' in request.form:
             move_num = prev_move(move_num)
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation, pgn_select_list=pgn_list)
             img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'mirror' in request.form:
             orientation = mirror_board(orientation)
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation, pgn_select_list=pgn_list)
             img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'reset' in request.form:
             reset_game()
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation, pgn_select_list=pgn_list)
             img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
         elif 'load_pgn' in request.form:
             run_pgn('pgn/Italian_game_classic.pgn')
-            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+            temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation, pgn_select_list=pgn_list)
             img2 = temp_svg.replace('"1000"', '"100%"')
             return render_template('index.html', board_svg=img2,
                                    game_title=title)
 
-    else:
-        #GET
+    if request.method == "GET": #GET
         reset_game()
         img = img.replace('"1000"', '"100%"')
-
         return render_template('index.html', board_svg=img,
-                               game_title=title)
+                               game_title=title, pgn_select_list=pgn_list)
 
 
 if __name__ == '__main__':
