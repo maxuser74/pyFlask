@@ -1,4 +1,3 @@
-import flask
 from flask import Flask, render_template, request, jsonify
 import chess
 import chess.svg
@@ -91,14 +90,6 @@ def reset_game():
     my_board = chess.Board()
     orientation = True
     my_board.reset_board()
-
-def refresh_board():
-    global img
-    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-    img = temp_svg.replace('"1000"', '"100%"')
-    return render_template('index.html', board_svg=img,
-                           game_title=title,
-                           pgn_select_list=pgn_list)
 
 
 @app.route('/process', methods=['POST', 'GET'])
