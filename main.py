@@ -4,6 +4,7 @@ import chess
 import chess.svg
 import chess.pgn
 import os
+import json
 
 STAT_DEV = True
 
@@ -112,36 +113,47 @@ def process():
     results = {'processed': 'true'}
     return jsonify(results)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global move_num, my_board, orientation, img, pgn_list, title
-    if request.method == "POST":
+    if request.is_json:
+        # Request is a JSON Object
+        if request.method == "GET":
+            # GET = send data to DOM client
+            return jsonify({'svg': img, 'title': title})
 
-        #POST
-        if 'next_btn' in request.form:
-            move_num = next_move(move_num)
-            return refresh_board()
+        if request.method == 'POST':
+            # POST = receive data from DOM client
+            print('POST')
 
-        elif 'prev_btn' in request.form:
-            move_num = prev_move(move_num)
-            return refresh_board()
+            variable2 = json.loads(request.data)
+            if 'button' in variable2.keys():
+                print(variable2['button'])
 
-        elif 'mirror' in request.form:
-            orientation = mirror_board(orientation)
-            return refresh_board()
+                if variable2['button'] == 'mirror':
+                    orientation = mirror_board(orientation)
+                    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+                    img = temp_svg.replace('"1000"', '"100%"')
 
-        elif 'reset' in request.form:
-            reset_game()
-            return refresh_board()
+                if variable2['button'] == 'next':
+                    move_num = next_move(move_num)
+                    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+                    img = temp_svg.replace('"1000"', '"100%"')
 
-        elif 'load_pgn' in request.form:
-            run_pgn('pgn/Italian game classic.pgn')
-            return refresh_board()
+                if variable2['button'] == 'prev':
+                    move_num = prev_move(move_num)
+                    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+                    img = temp_svg.replace('"1000"', '"100%"')
 
-    if request.method == "GET":
-        #GET
-        reset_game()
-        return refresh_board()
+                if variable2['button'] == 'reset':
+                    reset_game()
+                    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+                    img = temp_svg.replace('"1000"', '"100%"')
+
+            return jsonify({'svg': img, 'title': title})
+
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
