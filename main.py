@@ -138,6 +138,7 @@ def index():
                     img = temp_svg.replace('"1000"', '"100%"')
 
                 if variable2['button'] == 'reset':
+                    print('Reset game')
                     reset_game()
                     temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
                     img = temp_svg.replace('"1000"', '"100%"')
