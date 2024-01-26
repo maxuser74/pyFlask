@@ -92,17 +92,10 @@ def reset_game():
     my_board.reset_board()
 
 
-@app.route('/process', methods=['POST', 'GET'])
-def process():
-    if request.method == "POST":
-        ajax_data = request.get_json()
-        print(ajax_data['file_name'])
-        file_name_complete = 'pgn/' + ajax_data['file_name'] + '.pgn'
-        print(file_name_complete)
-        run_pgn(file_name_complete)
-
-    results = {'processed': 'true'}
-    return jsonify(results)
+def update_svg():
+    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
+    temp_img = temp_svg.replace('"1000"', '"100%"')
+    return temp_img
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -124,24 +117,20 @@ def index():
 
                 if variable2['button'] == 'mirror':
                     orientation = mirror_board(orientation)
-                    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-                    img = temp_svg.replace('"1000"', '"100%"')
+                    img = update_svg()
 
                 if variable2['button'] == 'next':
                     move_num = next_move(move_num)
-                    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-                    img = temp_svg.replace('"1000"', '"100%"')
+                    img = update_svg()
 
                 if variable2['button'] == 'prev':
                     move_num = prev_move(move_num)
-                    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-                    img = temp_svg.replace('"1000"', '"100%"')
+                    img = update_svg()
 
                 if variable2['button'] == 'reset':
                     print('Reset game')
                     reset_game()
-                    temp_svg = chess.svg.board(my_board, size=BOARDSIZE, orientation=orientation)
-                    img = temp_svg.replace('"1000"', '"100%"')
+                    img = update_svg()
 
             return jsonify({'svg': img, 'title': title})
 
