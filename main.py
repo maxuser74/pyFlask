@@ -109,11 +109,9 @@ def index():
 
         if request.method == 'POST':
             # POST = receive data from DOM client
-            print('POST')
 
             variable2 = json.loads(request.data)
             if 'button' in variable2.keys():
-                print(variable2['button'])
 
                 if variable2['button'] == 'mirror':
                     orientation = mirror_board(orientation)
@@ -128,7 +126,6 @@ def index():
                     img = update_svg()
 
                 if variable2['button'] == 'reset':
-                    print('Reset game')
                     reset_game()
                     img = update_svg()
 
