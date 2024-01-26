@@ -129,7 +129,7 @@ def index():
                     reset_game()
                     img = update_svg()
 
-            return jsonify({'svg': img, 'title': title})
+            return jsonify({'svg': img, 'title': title, 'pgn_list':pgn_list})
 
     return render_template('index.html')
 
