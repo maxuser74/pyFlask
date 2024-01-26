@@ -1,16 +1,12 @@
 $(document).ready(function(){
     console.log('Document ready!!!');
 
-    $.ajax({url: '',
-        type:'get',
-        contentType: 'application/json',
-        success: function(result){
-            console.log(result)
-            document.getElementById('SVG_PLACEHOLDER').innerHTML = result['svg'];
-            document.getElementById('TITLE').innerHTML = result['title'];
-            }
-    })
-
+    axios.post('/',{'button':'reset'})
+    .then((response) => {
+        update_view(response)
+     }, (error) => {
+      console.log(error);
+    });
 
 
   $('#BTN_MIRROR').click(function(){
