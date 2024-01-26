@@ -64,7 +64,5 @@ console.log(response)
         sel.add(option);
         }
 
-};
-
-
+    };
 })
