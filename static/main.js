@@ -30,7 +30,7 @@ $(document).ready(function(){
     $('#BTN_NEXT').click(function(){
     axios.post('/',{'button':'next'})
     .then((response) => {
-              update_view(response)
+        update_view(response)
     }, (error) => {
     console.log(error);
     });
