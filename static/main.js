@@ -12,6 +12,9 @@ $(document).ready(function(){
 
     $('#SELECT1').change(function(){
         console.log($(this).val());
+        document.getElementById('TITLE').innerHTML = $(this).val();
+
+
     })
 
   $('#BTN_MIRROR').click(function(){
@@ -49,10 +52,6 @@ $(document).ready(function(){
       console.log(error);
     });
   })
-
-function sel_changed(){
-    console.log('Selected')
-};
 
 function populate_selection(response){
               var sel = document.getElementById("SELECT1");
