@@ -22,8 +22,16 @@ function setWindowSize() {
 }
 
     $('#SELECT1').change(function(){
-        console.log($(this).val());
-        document.getElementById('TITLE').innerHTML = $(this).val();
+        this_select = $(this).val()
+        console.log(this_select);
+        document.getElementById('TITLE').innerHTML = this_select;
+        axios.post('/',{'select':this_select})
+            .then((response) => {
+                update_view(response)
+            }, (error) => {
+        console.log(error);
+    });
+
     })
 
   $('#BTN_MIRROR').click(function(){

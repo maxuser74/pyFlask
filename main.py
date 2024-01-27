@@ -129,7 +129,13 @@ def index():
                     reset_game()
                     img = update_svg()
 
+            if 'select' in variable2.keys():
+                title = variable2['select']
+
             return jsonify({'svg': img, 'title': title, 'pgn_list':pgn_list})
+
+
+
 
     return render_template('index.html')
 
