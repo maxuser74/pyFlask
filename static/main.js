@@ -1,7 +1,7 @@
 $(document).ready(function(){
     console.log('Document ready!!!');
+    const sound_effect = new Audio('static/move-self.mp3');
 
-    var sound = new Audio('sounds/move-self.mp3');
 
     window.addEventListener("resize", setWindowSize);
     setWindowSize();
@@ -57,6 +57,7 @@ function setWindowSize() {
     axios.post('/',{'button':'next'})
     .then((response) => {
         update_view(response)
+          sound_effect.play()
     }, (error) => {
     console.log(error);
     });
@@ -94,5 +95,6 @@ console.log(response)
       document.getElementById('SVG_PLACEHOLDER').innerHTML = response.data.svg;
       document.getElementById('TITLE').innerHTML = response.data.title;
       document.getElementById('SELECT1').value=response.data.title;
+
        };
 })

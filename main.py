@@ -75,10 +75,9 @@ def mirror_board(t_orient):
     return t_orient
 
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__)
 
 ico = './static/chess_king.svg'
-
 
 def reset_game():
     global move_num, my_board, BOARDSIZE, orientation, moves, title
@@ -139,7 +138,7 @@ def index():
 
 if __name__ == '__main__':
     if STAT_DEV:
-        app.run(debug=False)
+        app.run(debug=True)
     else:
         from waitress import serve
         serve(app, host="0.0.0.0", port=8080)
