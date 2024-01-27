@@ -1,6 +1,9 @@
 $(document).ready(function(){
     console.log('Document ready!!!');
 
+    window.addEventListener("resize", setWindowSize);
+    setWindowSize();
+
     axios.post('/',{'button':'reset'})
     .then((response) => {
         update_view(response)
@@ -9,6 +12,14 @@ $(document).ready(function(){
       console.log(error);
     });
 
+function setWindowSize() {
+  d_h = $(window).height() - 10;
+  console.log(d_h);
+  d_h_s = d_h.toString();
+  d_h_s = d_h_s + 'px'
+  document.getElementById("SVG_PLACEHOLDER").style.maxHeight = d_h_s;
+  document.getElementById("SVG_PLACEHOLDER").style.maxWidth = d_h_s;
+}
 
     $('#SELECT1').change(function(){
         console.log($(this).val());
