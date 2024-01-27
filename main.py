@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import chess
 import chess.svg
 import chess.pgn
@@ -6,6 +6,7 @@ import os
 import json
 
 STAT_DEV = True
+
 
 BOARDSIZE = 1000
 my_board = chess.Board()
@@ -131,7 +132,7 @@ def index():
                     run_pgn('pgn/' + title + '.pgn')
                     img = update_svg()
 
-            return jsonify({'svg': img, 'title': title, 'pgn_list':pgn_list})
+            return jsonify({'svg': img, 'title': title, 'pgn_list': pgn_list})
 
     return render_template('index.html')
 

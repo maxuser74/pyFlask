@@ -1,6 +1,8 @@
 $(document).ready(function(){
     console.log('Document ready!!!');
 
+    var sound = new Audio('sounds/move-self.mp3');
+
     window.addEventListener("resize", setWindowSize);
     setWindowSize();
 
@@ -14,7 +16,6 @@ $(document).ready(function(){
 
 function setWindowSize() {
   d_h = $(window).height() - 10;
-  console.log(d_h);
   d_h_s = d_h.toString();
   d_h_s = d_h_s + 'px'
   document.getElementById("SVG_PLACEHOLDER").style.maxHeight = d_h_s;
@@ -93,5 +94,5 @@ console.log(response)
       document.getElementById('SVG_PLACEHOLDER').innerHTML = response.data.svg;
       document.getElementById('TITLE').innerHTML = response.data.title;
       document.getElementById('SELECT1').value=response.data.title;
-    };
+       };
 })
