@@ -24,7 +24,6 @@ function setWindowSize() {
     $('#SELECT1').change(function(){
         console.log($(this).val());
         document.getElementById('TITLE').innerHTML = $(this).val();
-
     })
 
   $('#BTN_MIRROR').click(function(){
