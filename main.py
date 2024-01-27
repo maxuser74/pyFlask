@@ -13,10 +13,7 @@ orientation = True
 move_num = 0
 img = chess.svg.board(my_board, size= BOARDSIZE, orientation= orientation )
 img = img.replace('"1000"', '"100%"')
-
-moves = ['---','e4', 'e5', 'Nf3', 'Nc6', 'd4', 'exd4', 'Nxd4', 'Bc5']
 title = 'Scotch'
-
 dir_path = 'pgn'
 
 # list to store files
@@ -47,11 +44,12 @@ def run_pgn(file_name):
         move_num = 0
         title = file_name.replace('pgn/','')
         title = title.replace('.pgn', '')
-
     except:
         print('Wrong PGN')
         reset_game()
 
+
+run_pgn('pgn/' + title + '.pgn')
 
 def next_move(t_move_num):
     if t_move_num < len(moves) - 1:
@@ -83,12 +81,10 @@ ico = './static/chess_king.svg'
 
 def reset_game():
     global move_num, my_board, BOARDSIZE, orientation, moves, title
-
-    moves = ['---', 'e4', 'e5', 'Nf3', 'Nc6', 'd4', 'exd4', 'Nxd4', 'Bc5']
-    title = 'Scotch'
-    move_num = 0
+    run_pgn('pgn/' + title + '.pgn')
     my_board = chess.Board()
     orientation = True
+    move_num = 0
     my_board.reset_board()
 
 
@@ -130,7 +126,10 @@ def index():
                     img = update_svg()
 
             if 'select' in variable2.keys():
-                title = variable2['select']
+                if variable2['select'] != title:
+                    title = variable2['select']
+                    run_pgn('pgn/' + title + '.pgn')
+                    reset_game()
 
             return jsonify({'svg': img, 'title': title, 'pgn_list':pgn_list})
 

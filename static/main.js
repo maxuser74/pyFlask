@@ -79,10 +79,12 @@ function populate_selection(response){
 
                 var sel_l = Object.keys(response.data.pgn_list).length;
                 for(i=0; i<sel_l; i++){
-                console.log(response.data.pgn_list[i])
                 var option = document.createElement("option");
                 option.text = response.data.pgn_list[i];
                 sel.add(option);
+
+                document.getElementById('SELECT1').value=response.data.title;
+
                 }
 }
 
@@ -90,5 +92,6 @@ function update_view(response){
 console.log(response)
       document.getElementById('SVG_PLACEHOLDER').innerHTML = response.data.svg;
       document.getElementById('TITLE').innerHTML = response.data.title;
+      document.getElementById('SELECT1').value=response.data.title;
     };
 })
