@@ -129,12 +129,9 @@ def index():
                 if variable2['select'] != title:
                     title = variable2['select']
                     run_pgn('pgn/' + title + '.pgn')
-                    reset_game()
+                    img = update_svg()
 
             return jsonify({'svg': img, 'title': title, 'pgn_list':pgn_list})
-
-
-
 
     return render_template('index.html')
 
