@@ -31,7 +31,7 @@ $(document).ready(function(){
 
     function setWindowSize() {
         navbar_height = document.getElementById("NAVBAR").offsetHeight
-        d_h = $(window).height() - navbar_height - 15;
+        d_h = $(window).height() - navbar_height - 30;
         d_h_s = d_h.toString();
         d_h_s = d_h_s + 'px'
         document.getElementById("SVG_PLACEHOLDER").style.maxHeight = d_h_s;
