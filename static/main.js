@@ -73,7 +73,7 @@ function setWindowSize() {
   })
 
 $('#BOOTSTRAP_DROPDOWN').click(function(){
-    text = $(this).find("option:selected").val;
+    text = $(this);
     console.log(text)
     alert("hi")
 });
