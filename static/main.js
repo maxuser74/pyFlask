@@ -72,40 +72,10 @@ function setWindowSize() {
     });
   })
 
-$('#BOOTSTRAP_DROPDOWN').click(function(){
-    text = $(this);
-    console.log(text)
-    alert("hi")
-});
-
-function populate_selection(response){
-    var bs_dropdown = document.getElementById("BOOTSTRAP_DROPDOWN");
-    var sel_l = Object.keys(response.data.pgn_list).length;
-    for(i=0; i<sel_l; i++){
-        var option = document.createElement("option");
-        option.text = response.data.pgn_list[i];
-
-        // Boostrap dropdown population
-        var li = document.createElement("li");
-        var link = document.createElement("a");
-        var text = document.createTextNode(option);
-        link.appendChild(option);
-        link.href = "#";
-        link.className = "dropdown-item"
-        li.setAttribute("value", option.text);
-        li.appendChild(link);
-        bs_dropdown.appendChild(li);
-    }
-
-
-
-}
-
 function update_view(response){
 console.log(response)
       document.getElementById('SVG_PLACEHOLDER').innerHTML = response.data.svg;
       document.getElementById('TITLE').innerHTML = response.data.title;
-      document.getElementById('SELECT1').value=response.data.title;
-       };
+ };
 
 })
