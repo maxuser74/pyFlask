@@ -9,7 +9,17 @@ $(document).ready(function(){
     inputElement.addEventListener("change", handleFiles, false);
     function handleFiles() {
       const fileList = this.files; /* now you can work with the file list */
-        console.log(fileList)
+        selection = fileList[0].name.replace('.pgn','');
+        console.log(selection);
+
+        axios.post('/',{'select':selection})
+            .then((response) => {
+                update_view(response)
+            }, (error) => {
+        console.log(error);
+        });
+
+
     }
 
     axios.post('/',{'button':'reset'})
