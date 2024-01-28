@@ -2,7 +2,6 @@ $(document).ready(function(){
     console.log('Document ready!!!');
     const sound_effect = new Audio('static/move-self.mp3');
 
-
     window.addEventListener("resize", setWindowSize);
     setWindowSize();
 
@@ -15,7 +14,8 @@ $(document).ready(function(){
     });
 
 function setWindowSize() {
-  d_h = $(window).height() - 10;
+  navbar_height = document.getElementById("NAVBAR").offsetHeight
+  d_h = $(window).height() - navbar_height - 15;
   d_h_s = d_h.toString();
   d_h_s = d_h_s + 'px'
   document.getElementById("SVG_PLACEHOLDER").style.maxHeight = d_h_s;
@@ -72,22 +72,33 @@ function setWindowSize() {
     });
   })
 
+$('#BOOTSTRAP_DROPDOWN').click(function(){
+    text = $(this).find("option:selected").val;
+    console.log(text)
+    alert("hi")
+});
+
 function populate_selection(response){
-              var sel = document.getElementById("SELECT1");
-                var i, L = sel.options.length - 1;
-                for(i = L; i >= 0; i--) {
-                    sel.remove(i);
-                }
+    var bs_dropdown = document.getElementById("BOOTSTRAP_DROPDOWN");
+    var sel_l = Object.keys(response.data.pgn_list).length;
+    for(i=0; i<sel_l; i++){
+        var option = document.createElement("option");
+        option.text = response.data.pgn_list[i];
 
-                var sel_l = Object.keys(response.data.pgn_list).length;
-                for(i=0; i<sel_l; i++){
-                var option = document.createElement("option");
-                option.text = response.data.pgn_list[i];
-                sel.add(option);
+        // Boostrap dropdown population
+        var li = document.createElement("li");
+        var link = document.createElement("a");
+        var text = document.createTextNode(option);
+        link.appendChild(option);
+        link.href = "#";
+        link.className = "dropdown-item"
+        li.setAttribute("value", option.text);
+        li.appendChild(link);
+        bs_dropdown.appendChild(li);
+    }
 
-                document.getElementById('SELECT1').value=response.data.title;
 
-                }
+
 }
 
 function update_view(response){
@@ -95,6 +106,6 @@ console.log(response)
       document.getElementById('SVG_PLACEHOLDER').innerHTML = response.data.svg;
       document.getElementById('TITLE').innerHTML = response.data.title;
       document.getElementById('SELECT1').value=response.data.title;
-
        };
+
 })
