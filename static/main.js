@@ -8,10 +8,17 @@ $(document).ready(function(){
     axios.post('/',{'button':'reset'})
     .then((response) => {
         update_view(response)
-        populate_selection(response)
      }, (error) => {
       console.log(error);
     });
+
+const inputElement = document.getElementById("FILE_LOAD");
+inputElement.addEventListener("change", handleFiles, false);
+function handleFiles() {
+  const fileList = this.files; /* now you can work with the file list */
+    console.log(fileList)
+}
+
 
 function setWindowSize() {
   navbar_height = document.getElementById("NAVBAR").offsetHeight
