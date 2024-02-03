@@ -79,6 +79,7 @@ app = Flask(__name__)
 
 ico = './static/chess_king.svg'
 
+
 def reset_game():
     global move_num, my_board, BOARDSIZE, orientation, moves, title
     run_pgn('pgn/' + title + '.pgn')
